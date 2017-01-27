@@ -42,32 +42,18 @@ function reporte(){
 
       //Sacando datos de las campanias
       //Fechas
-      var prints = new Array();
-      var fechas = new Array();
-      var fechas2 = new Array();
+      var datos = new Object();
       for(var x in campanias){
-        console.log(campanias[x]);
-        fechas.push(campanias[x].date);
-        fechas2.push([campanias[x].name, campanias[x].date]);
+        datos[campanias[x].name] = [campanias[x].date, campanias[x].stats.clicks];
       }
+      var filas = new Array();
+      var encabezado = [null];
+      for(var x in datos){
+        encabezado.push(x);
+      }
+      filas.push(encabezado);
       // Datos a ser enviados de los clicks
-      for(var x in campanias){
-        var flag = false;
-        var fecha = campanias[x].date;
-        var stats = campanias[x].stats;
-        for(var y in fechas){
-          if(campanias[x] == fechas[y]){
-            flag = true;
-            break;
-          }
-        }
-        if(flag == true){
 
-        } else {
-
-        }
-      }
-      var clics = new Array();
       dibujarCampanias(fechas, clics);
     } else {
       console.log('Imposible obtener de vuelta la información del reporte.');
@@ -75,36 +61,29 @@ function reporte(){
   });
 }
 
-function dibujarCampanias(fechas, datos){
+function dibujarCampanias(columnas){
   Highcharts.chart('graficaCampanias', {
        title: {
            text: 'Clics por Campañas',
            x: -20 //center
        },
-       xAxis: {
-           categories: fechas
-       },
        yAxis: {
            title: {
-               text: 'Clics por campaña'
-           },
-           plotLines: [{
-               value: 0,
-               width: 1,
-               color: '#808080'
-           }]
+             text: 'Clics por campaña'
+           }
        },
+       xAxis:{
+         title: {
+           text: 'Fecha'
+         }
+       }
+       data:{
+         columns: columnas
+       }
        tooltip: {
            valueSuffix: 'Clics'
-       },
-       legend: {
-           layout: 'vertical',
-           align: 'right',
-           verticalAlign: 'middle',
-           borderWidth: 0
-       },
-       series: datos
-   });
+       }
+     });
 }
 
 function dibujarLocalizacion(datos){

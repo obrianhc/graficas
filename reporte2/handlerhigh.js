@@ -1,4 +1,4 @@
-var url = "http://localhost/datareporte2.php";
+var url = "http://localhost/graficas/datareporte2.php";
 var datos = { };
 
 function reporte(){
@@ -54,7 +54,7 @@ function reporte(){
       filas.push(encabezado);
       // Datos a ser enviados de los clicks
 
-      dibujarCampanias(fechas, clics);
+      dibujarCampanias();
     } else {
       console.log('Imposible obtener de vuelta la información del reporte.');
     }
@@ -76,10 +76,10 @@ function dibujarCampanias(columnas){
          title: {
            text: 'Fecha'
          }
-       }
+       },
        data:{
          columns: columnas
-       }
+       },
        tooltip: {
            valueSuffix: 'Clics'
        }

@@ -1,4 +1,4 @@
-var url = "http://localhost/pruebas.php";
+var url = "http://localhost/graficas/pruebas.php";
 var datos = { };
 function reporte(){
   $.post(url, datos,

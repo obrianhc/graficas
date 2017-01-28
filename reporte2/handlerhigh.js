@@ -41,20 +41,77 @@ function reporte(){
       dibujarLocalizacion(deptos);
 
       //Sacando datos de las campanias
-      //Fechas
-      var datos = new Object();
-      for(var x in campanias){
-        datos[campanias[x].name] = [campanias[x].date, campanias[x].stats.clicks];
+      var porFechas = new Object();
+      var lCampanias = new Object();
+      for(x in campanias){
+        lCampanias[campanias[x].name] = true;
       }
+      // Ya obtuvimos la lista completa de
+      var lista = new Array();
+      for(x in lCampanias){
+        lista.push(x);
+      }
+      // Ya obtuvimos las campañas por fecha
+      for(x in campanias){
+        var arreglo = porFechas[campanias[x].date];
+        if(Array.isArray(arreglo)){
+          arreglo.push([ campanias[x].name, campanias[x].stats ]);
+        } else {
+          arreglo = new Array();
+          arreglo.push([ campanias[x].name, campanias[x].stats ]);
+        }
+        porFechas[campanias[x].date] = arreglo;
+      }
+      // Ahora vamos a rellenar las campañas que hagan falta por fecha y rellenar con cero las estadísticas
+      for(x in lista){
+        for(y in porFechas){
+          var atributo = porFechas[y];
+          var flag = false;
+          for(z in atributo){
+            var arreglo = atributo[z];
+            if(lista[x] == arreglo[0]){
+              flag = true;
+              break;
+            }
+          }
+          if(flag == false){
+            atributo.push([lista[x], {"clicks": 0, "print": 0}]);
+            porFechas[y] = atributo;
+          }
+        }
+      }
+      // Ahora organizamos la data para graficar
       var filas = new Array();
-      var encabezado = [null];
-      for(var x in datos){
+      var encabezado = new Array();
+      encabezado.push(null);
+      for(x in porFechas){
         encabezado.push(x);
       }
       filas.push(encabezado);
-      // Datos a ser enviados de los clicks
-
-      dibujarCampanias();
+      var auxiliar = new Object();
+      for(x in porFechas){
+        var atributo = porFechas[x];
+        for(y in atributo){
+          var arreglo = atributo[y];
+          if(Array.isArray(auxiliar[arreglo[0]])){
+            auxiliar[arreglo[0]].push(arreglo[1].clicks)
+          } else {
+            auxiliar[arreglo[0]] = new Array();
+            auxiliar[arreglo[0]].push(arreglo[1].clicks);
+          }
+        }
+      }
+      for(x in auxiliar){
+        var fila = new Array();
+        var arreglo = auxiliar[x];
+        fila.push(x)
+        for(y in arreglo){
+          fila.push(arreglo[y]);
+        }
+        filas.push(fila);
+      }
+      filas = filas.sort();
+      dibujarCampanias(filas);
     } else {
       console.log('Imposible obtener de vuelta la información del reporte.');
     }
@@ -63,26 +120,16 @@ function reporte(){
 
 function dibujarCampanias(columnas){
   Highcharts.chart('graficaCampanias', {
-       title: {
-           text: 'Clics por Campañas',
-           x: -20 //center
-       },
-       yAxis: {
-           title: {
-             text: 'Clics por campaña'
-           }
-       },
-       xAxis:{
-         title: {
-           text: 'Fecha'
-         }
-       },
-       data:{
-         columns: columnas
-       },
-       tooltip: {
-           valueSuffix: 'Clics'
-       }
+      chart: {
+        type: 'line'
+      },
+      title: {
+         text: 'Clics por Campañas',
+         x: -20 //center
+      },
+      data:{
+       columns: columnas
+      }
      });
 }
 

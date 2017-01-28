@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Pruebas para reporte 2</title>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script src="handlerhigh.js"></script>
     <link href="graficas.css"></link>

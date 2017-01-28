@@ -1,7 +1,8 @@
 <?php
 echo '{
 "Status":"ok",
-"campaigns":[{"stats":{"clicks":1,"print":1},"name":"Example 1","date":"2017-01-10 00:00:00","channel":"ADS"},{"stats":{"clicks":146,"print":146},"name":"Example 1","date":"2017-01-08 00:00:00","channel":"ADS"},{"stats":{"clicks":59,"print":59},"name":"Example 1","date":"2017-01-06 00:00:00","channel":"ADS"},{"stats":{"clicks":55000,"print":100048},"name":"Example 1","date":"2017-01-05 00:00:00","channel":"ADS"},{"stats":{"clicks":77,"print":77},"name":"Example 1","date":"2017-01-09 00:00:00","channel":"ADS"}],
+"campaigns":[{"stats":{"clicks":1,"print":1},"name":"Example 1","date":"2017-01-10 00:00:00","channel":"ADS"},{"stats":{"clicks":146,"print":146},"name":"Example 1","date":"2017-01-08 00:00:00","channel":"ADS"},{"stats":{"clicks":59,"print":59},"name":"Example 1","date":"2017-01-06 00:00:00","channel":"ADS"},{"stats":{"clicks":55000,"print":100048},"name":"Example 1","date":"2017-01-05 00:00:00","channel":"ADS"},{"stats":{"clicks":77,"print":77},"name":"Example 1","date":"2017-01-09 00:00:00","channel":"ADS"},
+{"stats":{"clicks":1,"print":1},"name":"Example 2","date":"2017-01-11 00:00:00","channel":"ADS"},{"stats":{"clicks":146,"print":146},"name":"Example 2","date":"2017-01-08 00:00:00","channel":"ADS"},{"stats":{"clicks":59,"print":59},"name":"Example 2","date":"2017-01-06 00:00:00","channel":"ADS"},{"stats":{"clicks":55000,"print":100048},"name":"Example 3","date":"2017-01-05 00:00:00","channel":"ADS"},{"stats":{"clicks":77,"print":77},"name":"Example 3","date":"2017-01-09 00:00:00","channel":"ADS"}],
 "profile": {
     "age": {
       "45-49": 0.09597624775009672,

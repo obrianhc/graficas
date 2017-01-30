@@ -82,44 +82,58 @@ function reporte(){
       }
       // Ahora organizamos la data para graficar
       var filas = new Array();
-      var encabezado = new Array();
+      var filas2 = new Array();
+      /*var encabezado = new Array();
       encabezado.push(null);
       for(x in porFechas){
         encabezado.push(x);
       }
-      filas.push(encabezado);
+      filas.push(encabezado);*/
       var auxiliar = new Object();
+      var auxiliar2 = new Object();
       for(x in porFechas){
         var atributo = porFechas[x];
         for(y in atributo){
           var arreglo = atributo[y];
           if(Array.isArray(auxiliar[arreglo[0]])){
-            auxiliar[arreglo[0]].push(arreglo[1].clicks)
+            auxiliar[arreglo[0]].push([x, arreglo[1].clicks]);
+            auxiliar2[arreglo[0]].push([x, arreglo[1].print]);
           } else {
             auxiliar[arreglo[0]] = new Array();
-            auxiliar[arreglo[0]].push(arreglo[1].clicks);
+            auxiliar[arreglo[0]].push([x, arreglo[1].clicks]);
+            auxiliar2[arreglo[0]] = new Array();
+            auxiliar2[arreglo[0]].push([x, arreglo[1].print]);
           }
         }
       }
       for(x in auxiliar){
-        var fila = new Array();
+        var fila = new Object();
+        var fila2 = new Object();
         var arreglo = auxiliar[x];
-        fila.push(x)
+        var arreglo2 = auxiliar2[x];
+        var data = new Array();
+        var data2 = new Array();
+        fila['name'] = x;
+        fila2['name'] = x;
         for(y in arreglo){
-          fila.push(arreglo[y]);
+          data.push(arreglo[y]);
+          data2.push(arreglo2[y]);
         }
+        fila['data'] = data;
+        fila2['data'] = data2;
+        filas2.push(fila2);
         filas.push(fila);
       }
-      filas = filas.sort();
-      dibujarCampanias(filas);
+      dibujarClicks(filas);
+      dibujarImpresiones(filas2);
     } else {
       console.log('Imposible obtener de vuelta la información del reporte.');
     }
   });
 }
 
-function dibujarCampanias(columnas){
-  Highcharts.chart('graficaCampanias', {
+function dibujarClicks(data){
+  Highcharts.chart('graficaClicks', {
       chart: {
         type: 'line'
       },
@@ -127,9 +141,26 @@ function dibujarCampanias(columnas){
          text: 'Clics por Campañas',
          x: -20 //center
       },
-      data:{
-       columns: columnas
-      }
+      xAxis:{
+        type: 'datetime'
+      },
+      series: data
+     });
+}
+
+function dibujarImpresiones(data){
+  Highcharts.chart('graficaImpresiones', {
+      chart: {
+        type: 'line'
+      },
+      title: {
+         text: 'Impresiones por Campañas',
+         x: -20 //center
+      },
+      xAxis:{
+        type: 'datetime'
+      },
+      series: data
      });
 }
 
